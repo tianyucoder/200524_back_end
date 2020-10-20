@@ -69,7 +69,8 @@ mongoose.connection.on('open',(error)=>{
 				else console.log('插入数据成功',data);
 			}) */
 			//#endregion
-			//#region 增--不给回调，靠Promise
+			
+			//#region 增--不给回调，靠Promise反馈结果
 			/* studentModel.create({
 				stu_id:'004',
 				name:'志勇',
@@ -83,11 +84,26 @@ mongoose.connection.on('open',(error)=>{
 			) */
 			//#endregion
 				
-			//查
+			
+			//#region 查
 			/* studentModel.findOne({age:19},{name:1,sex:1,_id:0}).then(
 				value => {console.log('查询成功',value);},
 				reason => {console.log('查询失败',reason);}
 			) */
+			//#endregion
 
+			//#region 改
+			/* studentModel.updateMany({age:19},{sex:'女'}).then(
+				value => {console.log('修改成功',value);},
+				reason => {console.log('修改失败',reason);}
+			) */
+			//#endregion
+
+			//#region 删
+			/* studentModel.delete({age:20}).then(
+				value => {console.log('删除成功',value);},
+				reason => {console.log('删除失败',reason);}
+			) */
+			//#endregion
 		};
 })
