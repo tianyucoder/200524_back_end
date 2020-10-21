@@ -35,8 +35,9 @@ app.use(session({
 
 
 ;(async()=>{
-	await db //等待数据库连接
-
+	//等待数据库连接
+	await db
+	//响应用户注册
 	app.post('/register',async(request,response)=>{
 		//获取客户端传递过来的：邮箱、密码、昵称
 		const {email,pwd,nick_name} = request.body
