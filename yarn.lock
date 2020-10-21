@@ -54,6 +54,13 @@ bytes@3.1.0:
   resolved "https://registry.npm.taobao.org/bytes/download/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha1-9s95M6Ng4FiPqf3oVlHNx/gF0fY=
 
+connect-mongo@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/connect-mongo/download/connect-mongo-3.2.0.tgz#20f776c7f2a9d8144fc76cfdcbf33edb05eb4d52"
+  integrity sha1-IPd2x/Kp2BRPx2z9y/M+2wXrTVI=
+  dependencies:
+    mongodb "^3.1.0"
+
 content-disposition@0.5.3:
   version "0.5.3"
   resolved "https://registry.npm.taobao.org/content-disposition/download/content-disposition-0.5.3.tgz#e130caf7e7279087c5616c2007d0485698984fbd"
@@ -307,7 +314,7 @@ mime@1.6.0:
   resolved "https://registry.npm.taobao.org/mime/download/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   integrity sha1-Ms2eXGRVO9WNGaVor0Uqz/BJgbE=
 
-mongodb@3.6.2:
+mongodb@3.6.2, mongodb@^3.1.0:
   version "3.6.2"
   resolved "https://registry.npm.taobao.org/mongodb/download/mongodb-3.6.2.tgz#1154a4ac107bf1375112d83a29c5cf97704e96b6"
   integrity sha1-EVSkrBB78TdREtg6KcXPl3BOlrY=

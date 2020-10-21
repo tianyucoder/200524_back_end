@@ -1,6 +1,7 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const app = express()
 //应用cookie解析中间件
@@ -12,8 +13,11 @@ app.use(session({
 	secret: 'atguigu', //参与加密的字符串（又称签名）
 	cookie: {
 		 httpOnly: true, // 开启后前端无法通过 JS 操作cookie
-		 maxAge: 1000*30 // 设置cookie的过期时间
+		 maxAge: 1000*60*60 // 设置cookie的过期时间
 	},
+	store: new MongoStore({
+		url: 'mongodb://localhost:27017/sessions_container',
+	})
 }))
 
 app.get('/demo',(request,response)=>{
