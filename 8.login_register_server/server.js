@@ -1,6 +1,7 @@
 const express = require('express')
 //引入db模块---用于连接数据库
 const db = require('./db')
+
 //引入student模型对象---用于增删改查用户
 const userModel = require('./models/userModel')
 //引入cookie-parser，用于解析cookie
@@ -9,6 +10,9 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session');
 //引入connect-mongo，用于做session的持久化(非必须)
 const MongoStore = require('connect-mongo')(session);
+//引入md5加密
+const md5 = require('md5')
+// const sha1 = require('sha1')
 //创建一个服务对象
 const app = express()
 
@@ -45,7 +49,7 @@ app.use(session({
 		const findResult = await userModel.findOne({email})
 		//若未注册
 		if(!findResult){
-			await userModel.create({email,pwd,nick_name})
+			await userModel.create({email,pwd:md5(pwd),nick_name})
 			response.send({
 				code:20000,
 				msg:'注册成功！',
@@ -60,12 +64,45 @@ app.use(session({
 		}
 	})
 
-	app.post('/login',(request,response)=>{
-		
+	app.post('/login',async(request,response)=>{
+		//获取客户端传递过来的：邮箱、密码、昵称
+		const {email,pwd} = request.body
+		//去数据库中查询该用户是否注册过
+		const findResult = await userModel.findOne({email,pwd:md5(pwd)})
+		//若登录成功
+		if(findResult){
+			request.session._id = findResult._id
+			response.send({
+				code:20000,
+				msg:'登录成功！',
+				data:findResult
+			})
+		}else{
+			//登录失败
+			response.send({
+				code:20001,
+				msg:'登录失败！',
+				data:{}
+			})
+		}
 	})
 
-	app.post('/verify_login',(request,response)=>{
-		
+	app.post('/verify_login',async(request,response)=>{
+		const {_id} = request.session
+		const findResult = await userModel.findOne({_id})
+		if(findResult){
+			response.send({
+				code:20000,
+				msg:'验证身份成功！',
+				data:findResult
+			})
+		}else{
+			response.send({
+				code:20001,
+				msg:'用户身份不合法，请重新登录',
+				data:findResult
+			})
+		}
 	})
 
 	app.listen(8080,(err)=>{
